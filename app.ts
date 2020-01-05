@@ -1,30 +1,29 @@
-// Not ideal. Better to do const person = {name: 'Harry', age: 30}
-// const person: {name: string; age: number} = {
-//     name: 'Harry',
-//     age: 20,
-// };
+type Combinable = number | string;
+type ConversionDescriptor = "as-number" | "as-text";
 
-// const person: {name: string; age: number; hobbies: string[]; role: [number, string]} = {
-//   name: "Harry",
-//   age: 20,
-//   hobbies: ['Sports', 'Cooking'],
-//   role: [2, 'author']
-// };
-
-enum Role { ADMIN = 5, READ_ONLY, AUTHOR };
-
-const person = {
-    name: "Harry",
-    age: 20,
-    hobbies: ['Sports', 'Cooking'],
-    role: Role.ADMIN
-  };
-
-let favouriteActivities: string[];
-favouriteActivities = ['Sports'];
-
-console.log(person);
-
-for (const hobby of person.hobbies) {
-    console.log(hobby);
+// Union types
+function combine(
+  input1: Combinable,
+  input2: Combinable,
+  resultConversion: ConversionDescriptor
+) {
+  let result;
+  if (
+    (typeof input1 === "number" && typeof input2 === "number") ||
+    resultConversion === "as-number"
+  ) {
+    result = +input1 + +input2;
+  } else {
+    result = input1.toString() + input2.toString();
+  }
+  return result;
 }
+
+const combinedAges = combine(30, 26, "as-number");
+console.log(combinedAges);
+
+const combinedStringAges = combine("30", "26", "as-number");
+console.log(combinedStringAges);
+
+const combinedNames = combine("Harry", "Joseph", "as-text");
+console.log(combinedNames);

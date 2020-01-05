@@ -1,31 +1,18 @@
-// Not ideal. Better to do const person = {name: 'Harry', age: 30}
-// const person: {name: string; age: number} = {
-//     name: 'Harry',
-//     age: 20,
-// };
-// const person: {name: string; age: number; hobbies: string[]; role: [number, string]} = {
-//   name: "Harry",
-//   age: 20,
-//   hobbies: ['Sports', 'Cooking'],
-//   role: [2, 'author']
-// };
-var Role;
-(function (Role) {
-    Role[Role["ADMIN"] = 5] = "ADMIN";
-    Role[Role["READ_ONLY"] = 6] = "READ_ONLY";
-    Role[Role["AUTHOR"] = 7] = "AUTHOR";
-})(Role || (Role = {}));
-;
-var person = {
-    name: "Harry",
-    age: 20,
-    hobbies: ['Sports', 'Cooking'],
-    role: Role.ADMIN
-};
-var favouriteActivities;
-favouriteActivities = ['Sports'];
-console.log(person);
-for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
-    var hobby = _a[_i];
-    console.log(hobby);
+// Union types
+function combine(input1, input2, resultConversion) {
+    var result;
+    if ((typeof input1 === "number" && typeof input2 === "number") ||
+        resultConversion === "as-number") {
+        result = +input1 + +input2;
+    }
+    else {
+        result = input1.toString() + input2.toString();
+    }
+    return result;
 }
+var combinedAges = combine(30, 26, "as-number");
+console.log(combinedAges);
+var combinedStringAges = combine("30", "26", "as-number");
+console.log(combinedStringAges);
+var combinedNames = combine("Harry", "Joseph", "as-text");
+console.log(combinedNames);
